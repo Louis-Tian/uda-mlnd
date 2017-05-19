@@ -11939,23 +11939,23 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Minimum price of the data</span>
-<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Maximum price of the data</span>
-<span class="n">maximum_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">maximum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Mean price of the data</span>
-<span class="n">mean_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">mean_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Median price of the data</span>
-<span class="n">median_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">median_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Standard deviation of prices of the data</span>
-<span class="n">std_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">std_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># Show the calculated statistics</span>
 <span class="k">print</span> <span class="s2">&quot;Statistics for Boston housing dataset:</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -11982,7 +11982,7 @@ Minimum price: $105,000.00
 Maximum price: $1,024,800.00
 Mean price: $454,342.94
 Median price $438,900.00
-Standard deviation of prices: $165,340.28
+Standard deviation of prices: $165,171.13
 </pre>
 </div>
 </div>
@@ -13902,7 +13902,7 @@ RU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <p>max_depth = 3</p>
-<p>As more training points are added, the score of the training curve increased and the test curve descreased. Having more training points will still be benefical to the model. However the marginal benefit decreased with additional training data. Especially, in this case, where the performance of the classifier on training data and test data are both converging to 0.8. This indicates the model is already generaling pretty well, the benefit of having additional training data will be small/limited.</p>
+<p>As more training points are added, the score of the testing curve increased and the training curve descreased. Having more training points will still be benefical to the model. However the marginal benefit decreased with additional training data. Especially, in this case, where the performance of the classifier on training data and test data are both converging to 0.8. This indicates the model is already generaling pretty well, the benefit of having additional training data will be small/limited.</p>
 
 </div>
 </div>
@@ -14647,8 +14647,8 @@ RERE9LCEtYiIiIgelmnQiIiIiB6WkbWIiIiIHpawFhEREdHDEtYiIiIieljCWkREREQPS1iLiIiI
 <p><strong>Answer: </strong></p>
 <p>The score of the model (y-axis) represent the performance of a model. Higher score means low bias and vice versa.</p>
 <p>The gap between the two curves represents the difference in model performance on training and testing data. Large gap represent large difference in performance and hence large variance.</p>
-<p>When max_depth = 1, the model suffer from both high bias but low variance. 
-When max_depth = 10, the model suffer from relative lower bias (0.7 is still not great) and high variance.</p>
+<p>When max_depth = 1, the model has high bias and low variance because we have low training score and small gap.
+When max_depth = 10, the model has relative low bias and high variance because we have higher training score and large gap.</p>
 
 </div>
 </div>
@@ -14723,7 +14723,7 @@ When max_depth = 10, the model suffer from relative lower bias (0.7 is still not
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>K-fold cross-validate is a cross valuation technique that split the dataset into K equal sized subset. The k-fold cross-validation works by training the model k times. Each time one of k subset will be leave out and later used as testing data. And the model will be trained using the remaining k-1 subsets. Each of</p>
+<p>K-fold cross-validate is a cross valuation technique that split the dataset into K equal sized subset. The k-fold cross-validation works by training the model k times. Each time one of k subset will be leave out and later used as testing data. And the model will be trained using the remaining k-1 subsets. The final performance of the model is usually calculated by the taking the average from score from k tests.</p>
 <p>The beneift of k-fold cross-validation is that is allows us to maximized the training data could be used.</p>
 <p>If we train our model using grid search without proper cross validation, then we can overfit the hyperparameters the exactly same as how we would overfit the model parameters. Resulting a model that doesn't generalised and consequently perform poor on unseen dataset.</p>
 
@@ -14762,7 +14762,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -14775,7 +14775,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <span class="sd">        decision tree regressor trained on the input data [X, y]. &quot;&quot;&quot;</span>
     
     <span class="c1"># Create cross-validation sets from the training data</span>
-    <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># TODO: Create a decision tree regressor object</span>
     <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">()</span>
@@ -14787,7 +14787,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
     <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">performance_metric</span><span class="p">)</span>
 
     <span class="c1"># TODO: Create the grid search object</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">regressor</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring_fnc</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">regressor</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring_fnc</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">)</span>
 
     <span class="c1"># Fit the grid search object to the data to compute the optimal model</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -14824,7 +14824,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Fit the training data to the model using grid search</span>
