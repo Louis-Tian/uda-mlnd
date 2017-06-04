@@ -68,7 +68,13 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set 'state' as a tuple of relevant data for the agent
-        state = (waypoint, inputs['light'], inputs['oncoming'])
+
+        state = (
+            waypoint,
+            inputs['light'],
+            inputs['oncoming'] == 'right' or inputs['oncoming'] == 'forward',
+            inputs['left'] == 'foward'
+        )
 
         return state
 
@@ -93,9 +99,7 @@ class LearningAgent(Agent):
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
         if state not in self.Q.keys():
-            self.Q[state] = {}
-            for action in self.valid_actions:
-                    self.Q[state][action] = 0
+            self.Q[state] = {action: 0. for action in self.valid_actions}
         return None
 
     def choose_action(self, state):
@@ -112,13 +116,17 @@ class LearningAgent(Agent):
         # When not learning, choose a random action
         # When learning, choose a random action with 'epsilon' probability
         #   Otherwise, choose an action with the highest Q-value for the current state
+        maxQ = self.get_maxQ(state)
+
+        # choose from MaxQ actions
         if self.learning and (random.random() >= self.epsilon):
-            for a in self.valid_actions:
-                if self.Q[state][a] == self.get_maxQ(state):
-                    action = a
+            actions = [action for action in self.valid_actions if self.Q[state][action] == maxQ]
+        # choose from all valid actions
         else:
-            action = random.choice(self.valid_actions) # random by default
-        return action
+            actions = self.valid_actions
+
+        return random.choice(actions)
+
 
     def learn(self, state, action, reward):
         """ The learn function is called after the agent completes an action and
@@ -136,8 +144,7 @@ class LearningAgent(Agent):
         previous_state = state
         Q = self.Q[previous_state][action]
 
-        alpha = 0.5
-        self.Q[previous_state][action] = (1.0 - alpha) * Q +  alpha * (reward - Q)
+        self.Q[previous_state][action] = (1.0 - self.alpha) * Q +  self.alpha * (reward - Q)
 
         return None
 
