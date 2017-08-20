@@ -72,7 +72,8 @@ class LearningAgent(Agent):
         state = (
             waypoint,
             inputs['light'],
-            inputs['oncoming'] == 'right' or inputs['oncoming'] == 'forward',
+            inputs['oncoming'] == 'right',
+            inputs['oncoming'] == 'forward',
             inputs['left'] == 'foward'
         )
 
@@ -98,8 +99,12 @@ class LearningAgent(Agent):
         # When learning, check if the 'state' is not in the Q-table
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
+        if self.learning == False:
+            return None
+        
         if state not in self.Q.keys():
             self.Q[state] = {action: 0. for action in self.valid_actions}
+            
         return None
 
     def choose_action(self, state):
@@ -138,13 +143,15 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-        current_state = self.build_state()
-        self.createQ(current_state)
+        if self.learning:
+          
+            current_state = self.build_state()
+            self.createQ(current_state)
 
-        previous_state = state
-        Q = self.Q[previous_state][action]
+            previous_state = state
+            Q = self.Q[previous_state][action]
 
-        self.Q[previous_state][action] = (1.0 - self.alpha) * Q +  self.alpha * (reward - Q)
+            self.Q[previous_state][action] = (1.0 - self.alpha) * Q +  self.alpha * reward
 
         return None
 
