@@ -1,0 +1,25 @@
+((*- extends "base.tplx" -*))
+
+
+((* block author*))
+  \author{Louis Tian}
+((* endblock author*))
+
+
+
+((* block packages *))
+  ((( super() )))
+  \setlength{\parindent}{0cm}
+  \setlength{\parskip}{\baselineskip}
+((* endblock packages *))
+
+
+
+((* block docclass *))
+  \documentclass{article}[11pt]
+((* endblock docclass *))
+
+
+
+((* block input_group *))
+((* endblock input_group *))
