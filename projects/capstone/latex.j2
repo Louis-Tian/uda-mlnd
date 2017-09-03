@@ -1,10 +1,9 @@
-((*- extends "base.tplx" -*))
+((*- extends "article.tplx" -*))
 
 
 ((* block author*))
   \author{Louis Tian}
 ((* endblock author*))
-
 
 
 ((* block packages *))
@@ -14,12 +13,20 @@
 ((* endblock packages *))
 
 
-
 ((* block docclass *))
   \documentclass{article}[11pt]
 ((* endblock docclass *))
 
 
-
 ((* block input_group *))
 ((* endblock input_group *))
+
+
+((* block output_prompt *))
+((* endblock output_prompt *))
+
+
+((* block bibliography *))
+  \bibliographystyle{IEEEtran}
+  \bibliography{proposal}
+((* endblock bibliography *))
